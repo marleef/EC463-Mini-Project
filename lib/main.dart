@@ -158,9 +158,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  TextEditingController textEditingController = TextEditingController();
   dynamic _id = "";
   dynamic _name = "";
   dynamic _username = "";
+  
   Future<void> readJson() async {
     var headers = {
       'Access-Control-Allow-Origin': '*',
@@ -223,9 +225,25 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: const EdgeInsets.all(25),
         child: Column(
           children: [
+            TextField(
+              controller: textEditingController,
+              style: const TextStyle(
+                fontSize: 24,
+                color: Colors.black,
+              ),
+            ),
+            ElevatedButton(
+              child: const Text(
+                'Query User by id',
+                style: TextStyle(fontSize: 24),
+              ),
+              onPressed: () {
+                _sendDataToQueryUserbyIdScreen(context);
+              },
+            ),
             ElevatedButton(
               onPressed: readJson,
-              child: const Text('Query User by user id'),
+              child: const Text('Present Results'),
               
             ),
             Text('id: $_id',
@@ -263,7 +281,35 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+  void _sendDataToQueryUserbyIdScreen(BuildContext context) {
+    String textToSend = textEditingController.text;
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => QueryUserbyIdScreen(text: textToSend,),
+        ));
   }
+}
+
+class QueryUserbyIdScreen extends StatelessWidget {
+  final String text;
+
+  // receive data from the FirstScreen as a parameter
+  const QueryUserbyIdScreen({Key? key, required this.text}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Second screen')),
+      body: Center(
+        child: Text(
+          text,
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
+    );
+  }
+}
   
   // Widget build(BuildContext context) {
   //   return MaterialApp(
