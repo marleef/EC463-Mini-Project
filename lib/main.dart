@@ -173,122 +173,124 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-// class ResultsPage extends StatefulWidget {
-//   dynamic data;
-//   ResultsPage({super.key, required this.title, this.data});
-//   //final TextEditingController inputController;
-//   final String title;
+class ResultsPage extends StatefulWidget {
+  dynamic data;
+  ResultsPage({super.key, required this.title, this.data});
+  //final TextEditingController inputController;
+  final String title;
 
-//   @override
-//   _ResultsPageState createState() => _ResultsPageState();
-// }
+  @override
+  _ResultsPageState createState() => _ResultsPageState();
+}
 
-// class _ResultsPageState extends State<ResultsPage> {
-//   TextEditingController textEditingController = TextEditingController();
-//   dynamic _id = "";
-//   dynamic _name = "";
-//   dynamic _username = "";
+class _ResultsPageState extends State<ResultsPage> {
+  TextEditingController textEditingController = TextEditingController();
+  dynamic _id = "";
+  dynamic _name = "";
+  dynamic _username = "";
 
-//   Future<void> readJson() async {
-//     var headers = {
-//       'Access-Control-Allow-Origin': '*',
-//     'Authorization':
-//         'Bearer AAAAAAAAAAAAAAAAAAAAAHbigwEAAAAAYLdcL0KXSTmyQJc%2FToCqDKoWSYg%3DL6Td4vHj1Q3MIvu7tjge6iyRYIwQOTXw0gCWaiS79ESHtPWrxj',
-//     'Cookie': 'guest_id=v1%3A166335990863918549'
-//   };
-//   var request = http.Request(
-//       'GET', Uri.parse('https://api.twitter.com/2/users/23083404'));
-//   request.headers.addAll(headers);
+  Future<void> readJson() async {
+    var headers = {
+      'Access-Control-Allow-Origin': '*',
+      'Authorization':
+          'Bearer AAAAAAAAAAAAAAAAAAAAAHbigwEAAAAAYLdcL0KXSTmyQJc%2FToCqDKoWSYg%3DL6Td4vHj1Q3MIvu7tjge6iyRYIwQOTXw0gCWaiS79ESHtPWrxj',
+      'Cookie': 'guest_id=v1%3A166335990863918549'
+    };
+    var request = http.Request(
+        'GET', Uri.parse('https://api.twitter.com/2/users/23083404'));
+    request.headers.addAll(headers);
 
-//   http.StreamedResponse response = await request.send();
+    http.StreamedResponse response = await request.send();
 
-//   if (response.statusCode == 200) {
-//     var rawResponse = await response.stream.bytesToString();
-//     var decodedResponse = json.decode(rawResponse);
-//     setState(() {
-//       _id = decodedResponse["data"]["id"];
-//       _name = decodedResponse["data"]["name"];
-//       _username = decodedResponse["data"]["username"];
-//     });
-//     print(decodedResponse["data"]);
-//   } else {
-//     print(response.reasonPhrase);
-//     throw Exception("nononn");
-//   }
-// }
+    if (response.statusCode == 200) {
+      var rawResponse = await response.stream.bytesToString();
+      var decodedResponse = json.decode(rawResponse);
+      setState(() {
+        _id = decodedResponse["data"]["id"];
+        _name = decodedResponse["data"]["name"];
+        _username = decodedResponse["data"]["username"];
+      });
+      print(decodedResponse["data"]);
+    } else {
+      print(response.reasonPhrase);
+      throw Exception("nononn");
+    }
+  }
 
-// @override
-// Widget build(BuildContext context) {
-//   return Scaffold(
-//     appBar: AppBar(
-//       centerTitle: true,
-//       title: Text(
-//         'Twitter Monitor',
-//         style: Theme.of(context).appBarTheme.titleTextStyle,
-//       ),
-//     ),
-//     backgroundColor: Colors.black87,
-//     body: Padding(
-//       padding: const EdgeInsets.all(25),
-//       child: Column(
-//         children: [
-//           Text(
-//             'id : $_id',
-//             textAlign: TextAlign.center,
-//             overflow: TextOverflow.ellipsis,
-//             style: Theme.of(context).textTheme.bodyText1,
-//           ),
-//           Text(
-//             'name: $_name',
-//             textAlign: TextAlign.center,
-//             overflow: TextOverflow.ellipsis,
-//             style: Theme.of(context).textTheme.bodyText1,
-//           ),
-//           Text(
-//             'username: $_username',
-//             textAlign: TextAlign.center,
-//             overflow: TextOverflow.ellipsis,
-//             style: Theme.of(context).textTheme.bodyText1,
-// ),
-// TextButton(
-//   child: const Text(
-//     'Tweets',
-//     style: TextStyle(fontSize: 24, color: Colors.white),
-//   ),
-//   onPressed: () {
-//     Navigator.push(context, MaterialPageRoute(builder: (context) {
-//       return const TweetsPage(title: 'Tweets');
-//     }));
-//   },
-// ),
-//             TextButton(
-//               child: const Text(
-//                 'Sentiments',
-//                 style: TextStyle(fontSize: 24, color: Colors.white),
-//               ),
-//               onPressed: () {
-//                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-//                   return const SentimentsPage(title: 'Sentiments');
-//                 }));
-//               },
-//             ),
-//             TextButton(
-//               child: const Text(
-//                 'Topics',
-//                 style: TextStyle(fontSize: 24, color: Colors.white),
-//               ),
-//               onPressed: () {
-//                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-//                   return const TopicsPage(title: 'Topics');
-//                 }));
-//               },
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'Twitter Monitor',
+          style: Theme.of(context).appBarTheme.titleTextStyle,
+        ),
+      ),
+      backgroundColor: Colors.black87,
+      body: Padding(
+        padding: const EdgeInsets.all(25),
+        child: Column(
+          children: [
+            Text(
+              'id: \n',
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+            Text(
+              'name: \n',
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+            Text(
+              'username: \n',
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+            TextButton(
+              child: const Text(
+                'Tweets',
+                style: TextStyle(fontSize: 24, color: Colors.white),
+              ),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const TweetsPage(title: 'Tweets');
+                }));
+              },
+            ),
+            TextButton(
+              child: const Text(
+                'Sentiments',
+                style: TextStyle(
+                    fontSize: 14.0, color: Color.fromARGB(255, 121, 177, 224)),
+              ),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const SentimentsPage(title: 'Sentiments');
+                }));
+              },
+            ),
+            TextButton(
+              child: const Text(
+                'Topics',
+                style: TextStyle(
+                    fontSize: 14.0, color: Color.fromARGB(255, 121, 177, 224)),
+              ),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const TopicsPage(title: 'Topics');
+                }));
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 class SentimentsPage extends StatelessWidget {
   const SentimentsPage({Key? key, required this.title}) : super(key: key);
