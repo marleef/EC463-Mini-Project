@@ -11,18 +11,10 @@ import 'firebase_options.dart';
 import 'dart:ui' as ui;
 
 Future<void> main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
-  // runApp(MaterialApp(
-  //   initialRoute: '/',
-  //   routes: {
-  //     '/': (context) => const MyHomePage(),
-  //     '/second': (context) => const PresentResults(),
-  //   },
-  //));
 }
 
 Future<Post> fetchPostman() async {
@@ -46,189 +38,47 @@ Future<Post> fetchPostman() async {
   }
 }
 
-// class HomeRoute extends StatelessWidget {
-//   const HomeRoute({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('EC463 Mini Project'),
-//         backgroundColor: Colors.blue,
-//       ), // AppBar
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
-//             ElevatedButton(
-//               child: const Text('Click Me!'),
-//               onPressed: () {
-//                 Navigator.pushNamed(context, '/second');
-//               },
-//             ), // ElevatedButton
-//             ElevatedButton(
-//               child: const Text('Tap Me!'),
-//               onPressed: () {
-//                 Navigator.pushNamed(context, '/third');
-//               },
-//             ), // ElevatedButton
-//           ], // <Widget>[]
-//         ), // Column
-//       ), // Center
-//     ); // Scaffold
-//   }
-// }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'EC463 Mini Project',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        brightness: Brightness.dark,
+        primaryColor: Colors.black87,
+        fontFamily: 'JetBrainsMono',
+        textTheme: const TextTheme(
+          headline1: TextStyle(
+              fontSize: 72.0, fontWeight: FontWeight.w700, color: Colors.white),
+          headline2: TextStyle(
+              fontSize: 36.0, fontWeight: FontWeight.w700, color: Colors.white),
+          bodyText1: TextStyle(
+              fontSize: 14.0,
+              fontFamily: 'JetBrainsMono',
+              fontWeight: FontWeight.w400,
+              color: Colors.white),
+        ),
+        textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+          foregroundColor: Colors.white,
+        )),
+        appBarTheme: const AppBarTheme(
+          centerTitle: true,
+          titleTextStyle: TextStyle(
+              color: Colors.white,
+              fontFamily: 'JetBrainsMono',
+              fontSize: 24.0,
+              fontWeight: FontWeight.w700),
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+        ),
       ),
-      home: const HomePage(title: 'Twitter Monitor'),
+      home: const HomePage(title: 'Home'),
     );
   }
 }
-
-// class MyHomePage extends StatefulWidget {
-//   const MyHomePage({super.key, required this.title});
-
-//   final String title;
-
-//   @override
-//   State<MyHomePage> createState() => _MyHomePageState();
-// }
-
-// class _MyHomePageState extends State<MyHomePage> {
-//   TextEditingController textEditingController = TextEditingController();
-//   dynamic _id = "";
-//   dynamic _name = "";
-//   dynamic _username = "";
-
-//   Future<void> readJson() async {
-//     var headers = {
-//       'Access-Control-Allow-Origin': '*',
-//       'Authorization':
-//           'Bearer AAAAAAAAAAAAAAAAAAAAAHbigwEAAAAAYLdcL0KXSTmyQJc%2FToCqDKoWSYg%3DL6Td4vHj1Q3MIvu7tjge6iyRYIwQOTXw0gCWaiS79ESHtPWrxj',
-//       'Cookie': 'guest_id=v1%3A166335990863918549'
-//     };
-//     var request = http.Request(
-//         'GET', Uri.parse('https://api.twitter.com/2/users/23083404'));
-//     request.headers.addAll(headers);
-
-//     http.StreamedResponse response = await request.send();
-
-//     if (response.statusCode == 200) {
-//       var rawResponse = await response.stream.bytesToString();
-//       //var rawResponse = await http.Response.fromStream(response);
-//       var decodedResponse = json.decode(rawResponse);
-//       setState(() {
-//         _id = decodedResponse["data"]["id"];
-//         _name = decodedResponse["data"]["name"];
-//         _username = decodedResponse["data"]["username"];
-//       });
-//       print(decodedResponse["data"]);
-//     } else {
-//       print(response.reasonPhrase);
-//       throw Exception("nononn");
-//     }
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         centerTitle: true,
-//         title: const Text(
-//           'Twitter App',
-//         ),
-//       ),
-//       body: Padding(
-//         padding: const EdgeInsets.all(25),
-//         child: Column(
-//           children: [
-//             TextField(
-//               controller: textEditingController,
-//               style: const TextStyle(
-//                 fontSize: 24,
-//                 color: Colors.black,
-//               ),
-//             ),
-//             ElevatedButton(
-//               child: const Text(
-//                 'Query User by id',
-//                 style: TextStyle(fontSize: 24),
-//               ),
-//               onPressed: () {
-//                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-//                   return const TweetsPage(title: 'Landing Page');
-//                 }));
-//               },
-//             ),
-//             ElevatedButton(
-//               onPressed: readJson,
-//               child: const Text('Present Results'),
-//             ),
-//             Text(
-//               'id: $_id',
-//               textAlign: TextAlign.center,
-//               overflow: TextOverflow.ellipsis,
-//               style: const TextStyle(fontWeight: FontWeight.bold),
-//             ),
-//             Text(
-//               'name: $_name',
-//               textAlign: TextAlign.center,
-//               overflow: TextOverflow.ellipsis,
-//               style: const TextStyle(fontWeight: FontWeight.bold),
-//             ),
-//             Text(
-//               'username: $_username',
-//               textAlign: TextAlign.center,
-//               overflow: TextOverflow.ellipsis,
-//               style: const TextStyle(fontWeight: FontWeight.bold),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-
-//   // void _sendDataToQueryUserbyIdScreen(BuildContext context) {
-//   //   String textToSend = textEditingController.text;
-//   //   Navigator.push(
-//   //       context,
-//   //       MaterialPageRoute(
-//   //         builder: (context) => QueryUserbyIdScreen(
-//   //           text: textToSend,
-//   //         ),
-//   //       ));
-//   // }
-// }
-
-// class QueryUserbyIdScreen extends StatelessWidget {
-//   final String text;
-
-//   // receive data from the FirstScreen as a parameter
-//   const QueryUserbyIdScreen({Key? key, required this.text}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text('Second screen')),
-//       body: Center(
-//         child: Text(
-//           text,
-//           style: TextStyle(fontSize: 24),
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class UserInfo {
   dynamic id = "";
@@ -236,6 +86,11 @@ class UserInfo {
   dynamic username = "";
 
   UserInfo({this.id, this.name, this.username});
+}
+
+class InputField {
+  final String input;
+  InputField({required this.input});
 }
 
 class HomePage extends StatefulWidget {
@@ -246,37 +101,70 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController textEditingController = TextEditingController();
+  final inputController = TextEditingController();
+  // TextEditingController textEditingController = TextEditingController();
+  // dynamic _id = "";
+  // dynamic _name = "";
+  // dynamic _username = "";
+
+  // Future<void> readJson() async {
+  //   var headers = {
+  //     'Access-Control-Allow-Origin': '*',
+  //     'Authorization':
+  //         'Bearer AAAAAAAAAAAAAAAAAAAAAHbigwEAAAAAYLdcL0KXSTmyQJc%2FToCqDKoWSYg%3DL6Td4vHj1Q3MIvu7tjge6iyRYIwQOTXw0gCWaiS79ESHtPWrxj',
+  //     'Cookie': 'guest_id=v1%3A166335990863918549'
+  //   };
+  //   var request = http.Request(
+  //       'GET', Uri.parse('https://api.twitter.com/2/users/23083404'));
+  //   request.headers.addAll(headers);
+
+  //   http.StreamedResponse response = await request.send();
+
+  //   if (response.statusCode == 200) {
+  //     var rawResponse = await response.stream.bytesToString();
+  //     var decodedResponse = json.decode(rawResponse);
+  //     setState(() {
+  //       _id = decodedResponse["data"]["id"];
+  //       _name = decodedResponse["data"]["name"];
+  //       _username = decodedResponse["data"]["username"];
+  //     });
+  //     print(decodedResponse["data"]);
+  //   } else {
+  //     print(response.reasonPhrase);
+  //     throw Exception("nononn");
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          centerTitle: true,
-          title: const Text('Twitter App'),
+          title: Text('Twitter Monitor',
+              style: Theme.of(context).appBarTheme.titleTextStyle),
         ),
+        backgroundColor: Colors.black87,
         body: Padding(
           padding: const EdgeInsets.all(25),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextField(
-                controller: textEditingController,
-                style: const TextStyle(
-                  fontSize: 24,
-                  color: Colors.black,
-                ),
+                controller: inputController,
+                style: Theme.of(context).textTheme.bodyText1,
               ),
-              ElevatedButton(
-                child: const Text(
-                  'Query User by id',
-                  style: TextStyle(fontSize: 24),
-                ),
+              TextButton(
+                child: const Text('Query User by ID',
+                    style: TextStyle(
+                        fontSize: 14.0,
+                        color: Color.fromARGB(255, 121, 177, 224))),
                 onPressed: () {
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  //   return const TweetsPage(title: 'Landing Page');
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const ResultsPage(title: 'Results Page');
-                  }));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TweetsPage(
+                                title: 'Tweets',
+                                //data: inputController.text,
+                              )));
                 },
               ),
             ],
@@ -285,120 +173,122 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class ResultsPage extends StatefulWidget {
-  const ResultsPage({super.key, required this.title});
+// class ResultsPage extends StatefulWidget {
+//   dynamic data;
+//   ResultsPage({super.key, required this.title, this.data});
+//   //final TextEditingController inputController;
+//   final String title;
 
-  final String title;
+//   @override
+//   _ResultsPageState createState() => _ResultsPageState();
+// }
 
-  @override
-  State<ResultsPage> createState() => _ResultsPageState();
-}
+// class _ResultsPageState extends State<ResultsPage> {
+//   TextEditingController textEditingController = TextEditingController();
+//   dynamic _id = "";
+//   dynamic _name = "";
+//   dynamic _username = "";
 
-class _ResultsPageState extends State<ResultsPage> {
-  TextEditingController textEditingController = TextEditingController();
-  dynamic _id = "";
-  dynamic _name = "";
-  dynamic _username = "";
+//   Future<void> readJson() async {
+//     var headers = {
+//       'Access-Control-Allow-Origin': '*',
+//     'Authorization':
+//         'Bearer AAAAAAAAAAAAAAAAAAAAAHbigwEAAAAAYLdcL0KXSTmyQJc%2FToCqDKoWSYg%3DL6Td4vHj1Q3MIvu7tjge6iyRYIwQOTXw0gCWaiS79ESHtPWrxj',
+//     'Cookie': 'guest_id=v1%3A166335990863918549'
+//   };
+//   var request = http.Request(
+//       'GET', Uri.parse('https://api.twitter.com/2/users/23083404'));
+//   request.headers.addAll(headers);
 
-  Future<void> readJson() async {
-    var headers = {
-      'Access-Control-Allow-Origin': '*',
-      'Authorization':
-          'Bearer AAAAAAAAAAAAAAAAAAAAAHbigwEAAAAAYLdcL0KXSTmyQJc%2FToCqDKoWSYg%3DL6Td4vHj1Q3MIvu7tjge6iyRYIwQOTXw0gCWaiS79ESHtPWrxj',
-      'Cookie': 'guest_id=v1%3A166335990863918549'
-    };
-    var request = http.Request(
-        'GET', Uri.parse('https://api.twitter.com/2/users/23083404'));
-    request.headers.addAll(headers);
+//   http.StreamedResponse response = await request.send();
 
-    http.StreamedResponse response = await request.send();
+//   if (response.statusCode == 200) {
+//     var rawResponse = await response.stream.bytesToString();
+//     var decodedResponse = json.decode(rawResponse);
+//     setState(() {
+//       _id = decodedResponse["data"]["id"];
+//       _name = decodedResponse["data"]["name"];
+//       _username = decodedResponse["data"]["username"];
+//     });
+//     print(decodedResponse["data"]);
+//   } else {
+//     print(response.reasonPhrase);
+//     throw Exception("nononn");
+//   }
+// }
 
-    if (response.statusCode == 200) {
-      var rawResponse = await response.stream.bytesToString();
-      //var rawResponse = await http.Response.fromStream(response);
-      var decodedResponse = json.decode(rawResponse);
-      setState(() {
-        _id = decodedResponse["data"]["id"];
-        _name = decodedResponse["data"]["name"];
-        _username = decodedResponse["data"]["username"];
-      });
-      print(decodedResponse["data"]);
-    } else {
-      print(response.reasonPhrase);
-      throw Exception("nononn");
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          'Twitter App',
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(25),
-        child: Column(
-          children: [
-            Text(
-              'id: $_id',
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text(
-              'name: $_name',
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text(
-              'username: $_username',
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            ElevatedButton(
-              child: const Text(
-                'Tweets',
-                style: TextStyle(fontSize: 24),
-              ),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return const TweetsPage(title: 'Tweets');
-                }));
-              },
-            ),
-            ElevatedButton(
-              child: const Text(
-                'Sentiments',
-                style: TextStyle(fontSize: 24),
-              ),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return const SentimentsPage(title: 'Sentiments');
-                }));
-              },
-            ),
-            ElevatedButton(
-              child: const Text(
-                'Topics',
-                style: TextStyle(fontSize: 24),
-              ),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return const TopicsPage(title: 'Topics');
-                }));
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+// @override
+// Widget build(BuildContext context) {
+//   return Scaffold(
+//     appBar: AppBar(
+//       centerTitle: true,
+//       title: Text(
+//         'Twitter Monitor',
+//         style: Theme.of(context).appBarTheme.titleTextStyle,
+//       ),
+//     ),
+//     backgroundColor: Colors.black87,
+//     body: Padding(
+//       padding: const EdgeInsets.all(25),
+//       child: Column(
+//         children: [
+//           Text(
+//             'id : $_id',
+//             textAlign: TextAlign.center,
+//             overflow: TextOverflow.ellipsis,
+//             style: Theme.of(context).textTheme.bodyText1,
+//           ),
+//           Text(
+//             'name: $_name',
+//             textAlign: TextAlign.center,
+//             overflow: TextOverflow.ellipsis,
+//             style: Theme.of(context).textTheme.bodyText1,
+//           ),
+//           Text(
+//             'username: $_username',
+//             textAlign: TextAlign.center,
+//             overflow: TextOverflow.ellipsis,
+//             style: Theme.of(context).textTheme.bodyText1,
+// ),
+// TextButton(
+//   child: const Text(
+//     'Tweets',
+//     style: TextStyle(fontSize: 24, color: Colors.white),
+//   ),
+//   onPressed: () {
+//     Navigator.push(context, MaterialPageRoute(builder: (context) {
+//       return const TweetsPage(title: 'Tweets');
+//     }));
+//   },
+// ),
+//             TextButton(
+//               child: const Text(
+//                 'Sentiments',
+//                 style: TextStyle(fontSize: 24, color: Colors.white),
+//               ),
+//               onPressed: () {
+//                 Navigator.push(context, MaterialPageRoute(builder: (context) {
+//                   return const SentimentsPage(title: 'Sentiments');
+//                 }));
+//               },
+//             ),
+//             TextButton(
+//               child: const Text(
+//                 'Topics',
+//                 style: TextStyle(fontSize: 24, color: Colors.white),
+//               ),
+//               onPressed: () {
+//                 Navigator.push(context, MaterialPageRoute(builder: (context) {
+//                   return const TopicsPage(title: 'Topics');
+//                 }));
+//               },
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class SentimentsPage extends StatelessWidget {
   const SentimentsPage({Key? key, required this.title}) : super(key: key);
@@ -407,9 +297,9 @@ class SentimentsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(title, style: Theme.of(context).appBarTheme.titleTextStyle),
       ),
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.black87,
     );
   }
 }
@@ -421,9 +311,9 @@ class TopicsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(title, style: Theme.of(context).appBarTheme.titleTextStyle),
       ),
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.black87,
     );
   }
 }
@@ -431,6 +321,9 @@ class TopicsPage extends StatelessWidget {
 class TweetsPage extends StatelessWidget {
   const TweetsPage({Key? key, required this.title}) : super(key: key);
   final String title;
+  // String _id = "";
+  // String _name = "";
+  // String _username = "";
   @override
   Widget build(BuildContext context) {
     // ignore: undefined_prefixed_name
@@ -444,9 +337,9 @@ class TweetsPage extends StatelessWidget {
     );
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(title, style: Theme.of(context).appBarTheme.titleTextStyle),
       ),
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.black87,
       body: Padding(
         padding: const EdgeInsets.all(5.0),
         child: Row(
@@ -454,20 +347,65 @@ class TweetsPage extends StatelessWidget {
           children: [
             Expanded(
               child: Container(
-                child: Center(
-                  child: Text(
-                    "Twitter Timeline \nin \nFlutter Web",
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline3?.copyWith(
-                          color: Colors.white,
+                padding: EdgeInsets.all(200.0),
+                child: Column(
+                  
+                            mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'id: \n',
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                      Text(
+                        'name: \n',
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                      Text(
+                        'username: \n',
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                      TextButton(
+                        child: const Text(
+                          'Sentiments',
+                          style: TextStyle(
+                              fontSize: 14.0,
+                              color: Color.fromARGB(255, 121, 177, 224)),
                         ),
-                  ),
-                ),
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return const SentimentsPage(title: 'Sentiments');
+                          }));
+                        },
+                      ),
+                      TextButton(
+                        child: const Text(
+                          'Topics',
+                          style: TextStyle(
+                              fontSize: 14.0,
+                              color: Color.fromARGB(255, 121, 177, 224)),
+                        ),
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return const TopicsPage(title: 'Topics');
+                          }));
+                        },
+                      ),
+                    ]),
               ),
             ),
             Expanded(
               child: Container(
-                padding: EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(30.0),
                 child: HtmlElementView(
                   viewType: "twitter",
                 ),
