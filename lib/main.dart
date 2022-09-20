@@ -17,104 +17,6 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-// void getapi() async {
-//   var headers = {
-//     'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAAHbigwEAAAAAYLdcL0KXSTmyQJc%2FToCqDKoWSYg%3DL6Td4vHj1Q3MIvu7tjge6iyRYIwQOTXw0gCWaiS79ESHtPWrxj',
-//     'Cookie': 'guest_id=v1%3A166335990863918549'
-//   };
-//   var request = http.Request('GET', Uri.parse('https://api.twitter.com/2/users/34/following'));
-
-//   request.headers.addAll(headers);
-
-//   http.StreamedResponse response = await request.send();
-
-//   if (response.statusCode == 200) {
-//     print(await response.stream.bytesToString());
-//   }
-//   else {
-//     print(response.reasonPhrase);
-//   }
-
-// }
-
-Future<Post> fetchPostman() async {
-  var headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAAHbigwEAAAAAYLdcL0KXSTmyQJc%2FToCqDKoWSYg%3DL6Td4vHj1Q3MIvu7tjge6iyRYIwQOTXw0gCWaiS79ESHtPWrxj',
-    'Cookie': 'guest_id=v1%3A166335990863918549'
-  };
-  // var request = http.Request('GET', Uri.parse('https://api.twitter.com/2/users/23083404'));
-  // request.headers.addAll(headers);
-
-  // http.StreamedResponse response = await request.send();
-
-  // if (response.statusCode == 200) {
-  //   final String rawResponse = await response.stream.bytesToString();
-  //   final decodedResponse = jsonDecode(rawResponse);
-  //   return decodedResponse;
-  // }
-  // else {
-  //   print(response.reasonPhrase);
-  //   throw Exception("nononn");
-  // }
-  // var response = await request.send();
-  // final sendresponse = await http.Response.fromStream(response);
-  // if (response.statusCode == 200) {
-  //   var responseData = jsonDecode(sendresponse["Data"]);
-  //   List<Post> users = [];
-  //   for (var singleData in responseData) {
-  //     Post user = Post(
-  //         id: singleData["id"],
-  //         name: singleData["name"],
-  //         username: singleData["username"]);
-  
-  //     //Adding user to the list.
-  //     users.add(user);
-  //   }
-  //   return users;
-  // }
-  // else {
-  //   print(response.reasonPhrase);
-  //   throw Exception('nonononono');
-  // }
-
-
-    
-  String url = "https://api.twitter.com/2/users/23083404";
-  //   // Map<String, String> headers = {
-  //   //   "Content-Type": "application/json",
-  //   //   "Application-Token": "1569025925387272193-eeB8czHPQ9SZAG3afgFftQg7FvnUGP"
-  //   // };
-  //   // String id = '1228393702244134912';
-
-  //   //var responseJson = json.decode(response.body);
-  //   // List<Post> posts = [];
-  //   // for (var singleContent in responseJson) {
-  //   //   Post post = Post(
-  //   //     userId: singleContent["userId"],
-  //   //     id: singleContent["id"],
-  //   //     title: singleContent["title"],
-  //   //     body: singleContent["body"]);
-  //   //   posts.add(post);
-  //   // }
-  //       //print(_response);
-  //       // return _response;
-  final response =
-    await http.get(Uri.parse(url),
-    headers: headers,
-  );
-  if(response.statusCode == 200){
-    return Post.fromJson(jsonDecode(response.body));
-  } else {
-    throw Exception('Failed to fetch from twitter');
-  }
-    // int statusCode = response.statusCode;
-  // print('This is the statuscode: $statusCode');
-    
-    
-
-    //print('This is the API response: $responseJson');
-}
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -160,60 +62,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late TextEditingController _c;
-  //TextEditingController textEditingController = TextEditingController();
   String _text = "initial";
-  dynamic _id = "";
-  dynamic _name = "";
-  dynamic _username = "";
-  
-  Future<void> readJson(String text) async {
-    var headers = {
-      'Access-Control-Allow-Origin': '*',
-      'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAAHbigwEAAAAAYLdcL0KXSTmyQJc%2FToCqDKoWSYg%3DL6Td4vHj1Q3MIvu7tjge6iyRYIwQOTXw0gCWaiS79ESHtPWrxj',
-      'Cookie': 'guest_id=v1%3A166335990863918549'
-    };
-    var request = http.Request('GET', Uri.parse('https://api.twitter.com/2/users/$text'));
-    request.headers.addAll(headers);
-
-    http.StreamedResponse response = await request.send();
-
-    if (response.statusCode == 200) {
-      var rawResponse = await response.stream.bytesToString();
-      //var rawResponse = await http.Response.fromStream(response);
-      var decodedResponse = json.decode(rawResponse);
-      setState(() {
-        _id = decodedResponse["data"]["id"];
-        _name = decodedResponse["data"]["name"];
-        _username = decodedResponse["data"]["username"];
-        
-      });
-      print(decodedResponse["data"]);
-    }
-    else {
-      print(response.reasonPhrase);
-      throw Exception("nononn");
-    }
-  }
-  // var _posts;
-  // void initState(){
-  //   super.initState();
-  //   Response = fetchPostman();
-
-  //   setState(() {
-  //     _posts = Response;
-  //   });
-  // }
-  // int _counter = 0;
-  // void _incrementCounter() {
-  //   setState(() {
-  //     // This call to setState tells the Flutter framework that something has
-  //     // changed in this State, which causes it to rerun the build method below
-  //     // so that the display can reflect the updated values. If we changed
-  //     // _counter without calling setState(), then the build method would not be
-  //     // called again, and so nothing would appear to happen.
-  //     _counter++;
-  //   });
-  // }
 
   @override
   void initState() {
@@ -243,10 +92,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.black,
               ),
             ),
+            const SizedBox(
+              height: 20.0,
+            ),
             ElevatedButton(
               child: const Text(
-                'Query User by id',
-                style: TextStyle(fontSize: 24),
+                'Query User by id Function',
+                style: TextStyle(fontSize: 30),
               ),
               onPressed: () {
                 setState(() {
@@ -256,42 +108,39 @@ class _MyHomePageState extends State<MyHomePage> {
                 _sendDataToQueryUserbyIdScreen(context, _text);
               },
             ),
-            ElevatedButton(
-              onPressed: () async {
-                await readJson(_text);
-              },
-              child: const Text('Present Results'),
+            const SizedBox(
+              height: 20.0,
             ),
-            Text('id: $_id',
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontWeight: FontWeight.bold),),
-            Text('name: $_name',
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontWeight: FontWeight.bold),),
-            Text('username: $_username',
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontWeight: FontWeight.bold),),
-            // Display the data loaded from sample.json
-            // _items.isEmpty
-            //     ? Expanded(
-            //         child: ListView.builder(
-            //           itemCount: _items.length,
-            //           itemBuilder: (context, index) {
-            //             return Card(
-            //               margin: const EdgeInsets.all(10),
-            //               child: ListTile(
-            //                 leading: Text(_items),
-            //                 title: Text(_items),
-            //                 subtitle: Text(_items),
-            //               ),
-            //             );
-            //           },
-            //         ),
-            //       )
-            //     : Container(),
+            ElevatedButton(
+              child: const Text(
+                'Check User/Bot Function',
+                style: TextStyle(fontSize: 30),
+              ),
+              onPressed: () {
+                setState(() {
+                  _text = _c.text;
+                });
+                // Navigator.pop(context);
+                _sendDataToCheckBotScreen(context, _text);
+              },
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            ElevatedButton(
+              onPressed: () async{
+                const url = 'https://twitter.com/i/flow/login';
+                if(await canLaunchUrl(Uri.parse(url))){
+                  await launchUrl(Uri.parse(url));
+                } else {
+                  throw 'Could not launch $url';
+                }
+              },
+              child: const Text(
+                'Open Twitter URL',
+                style: TextStyle(fontSize: 30)
+              ),
+            ),
           ],
         ),
       ),
@@ -304,6 +153,105 @@ class _MyHomePageState extends State<MyHomePage> {
         MaterialPageRoute(
           builder: (context) => QueryUserbyIdScreen(text: textToSend,),
         ));
+  }
+
+  void _sendDataToCheckBotScreen(BuildContext context, String text) {
+    String textToSend = text;
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CheckBotScreen(text: textToSend,),
+        ));
+  }
+}
+
+class CheckBotScreen extends StatefulWidget {
+  final String text;
+  
+  // receive data from the FirstScreen as a parameter
+  const CheckBotScreen({super.key, required this.text});
+  @override
+  _CheckBotScreenState createState() {
+    return _CheckBotScreenState();
+  }
+}
+
+class _CheckBotScreenState extends State<CheckBotScreen> {
+  TextEditingController _c = TextEditingController();
+  var Data;
+  String url = '';
+  String _text = '';
+  Future ConvertUrl(String urL) async {
+    var request = http.Request('GET', Uri.parse(urL));
+    var headers = {
+      "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "Access-Control-Allow-Headers": "Origin,content-type,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale, X-RapidAPI-Key, X-RapidAPI-Host",
+      'Referrer-Policy' : 'no-referrer-when-downgrade',
+    };
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      var rawResponse = await http.Response.fromStream(response);
+      return rawResponse.body;
+    } else{
+      return "User Not found, cannot perform bot check.";
+    }
+  }
+  
+  Future<void> CheckBot(String inputText) async {
+    var inputUrl = 'http://127.0.0.1:5000/$inputText';
+    Data = await ConvertUrl(inputUrl);
+    setState(() {
+      _text = Data;
+      url = inputUrl;
+    });
+  }
+
+  @override
+  void initState() {
+    CheckBot(widget.text);
+    super.initState();
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Bot Account Checker Page')),
+      body: Center(
+        child: Column(children: [
+        TextField(
+          controller: _c,
+          decoration: const InputDecoration(
+            hintText: "Input id to check if user is real",
+            ),
+          style: const TextStyle(
+            fontSize: 30,
+            color: Colors.black,
+          ),
+        ),
+        const SizedBox(
+          height: 20.0,
+        ),
+        ElevatedButton(
+              onPressed: () async {
+                await CheckBot(_c.text);
+              },
+              child: const Text('Click to check bot user',
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+              ),
+            ),
+        const SizedBox(
+          height: 10.0,
+        ),
+        Text('Bot score: $_text\n\nQueried url: $url',
+          textAlign: TextAlign.center,
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),),
+        ],),
+      ),
+    );
   }
 }
 
@@ -319,14 +267,12 @@ class QueryUserbyIdScreen extends StatefulWidget {
 }
 
 class _QueryUserbyIdScreenState extends State<QueryUserbyIdScreen> {
-  late TextEditingController _c;
-  //TextEditingController textEditingController = TextEditingController();
-  String _text = "initial";
+  TextEditingController _c = TextEditingController();
   dynamic _id = "";
   dynamic _name = "";
   dynamic _username = "";
-  var Data;
-  String url = 'http://10.0.2.2:5000/23083404';
+  dynamic _error_flag;
+  dynamic _error_visibility = false;
 
   Future<void> readJson(String text) async {
     var headers = {
@@ -343,43 +289,36 @@ class _QueryUserbyIdScreenState extends State<QueryUserbyIdScreen> {
       var rawResponse = await response.stream.bytesToString();
       //var rawResponse = await http.Response.fromStream(response);
       var decodedResponse = json.decode(rawResponse);
-      setState(() {
-        _id = decodedResponse["data"]["id"];
-        _name = decodedResponse["data"]["name"];
-        _username = decodedResponse["data"]["username"];
-        
-      });
-      print(decodedResponse["data"]);
+      try {
+        setState(() {
+          _id = decodedResponse["data"]["id"];
+          _name = decodedResponse["data"]["name"];
+          _username = decodedResponse["data"]["username"];
+          _error_flag = "";
+          _error_visibility = false;
+        });
+      } catch (error) {
+        setState(() {
+          _id = "";
+          _name = "";
+          _username = "";
+          _error_flag = decodedResponse["errors"][0]["detail"];
+          _error_visibility = true;
+        });
+      }
+      
+      // if (error_visibility){
+      //   setState(() {
+      //     _error_flag = "Cannot find User with Userid $text.";
+      //     error_visibility = true;
+      //   });
+      // }   
     }
     else {
-      print(response.reasonPhrase);
-      throw Exception("nononn");
+      throw Exception("Check user by Id request failed.");
     }
   }
 
-  Future ConvertUrl(url) async {
-    var request = http.Request('GET', Uri.parse(url));
-    var headers = {
-      "Access-Control-Allow-Origin": "*", // Required for CORS support to work
-      // "Access-Control-Allow-Credentials": true, // Required for cookies, authorization headers with HTTPS
-      "Access-Control-Allow-Headers": "Origin,content-type,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale, X-RapidAPI-Key, X-RapidAPI-Host",
-      'Referrer-Policy' : 'no-referrer-when-downgrade',
-      //'Accept': '*/*'
-    };
-    request.headers.addAll(headers);
-    http.StreamedResponse response = await request.send();
-    // var uri = Uri.https('10.0.2.2:5000', '/23083404');
-    // var response = await Client.get(uri);
-    // http.Response response = await http.get(Uri.parse(url),headers: headers);
-    // return response.body;
-    if (response.statusCode == 200) {
-      //var rawResponse = await response.stream.bytesToString();
-      var rawResponse = await http.Response.fromStream(response);
-      return rawResponse.body;
-    } else{
-      throw 'ConvertUrl request not successful';
-    }
-  }
 
   @override
   void initState() {
@@ -390,71 +329,65 @@ class _QueryUserbyIdScreenState extends State<QueryUserbyIdScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Query User by id Result Page')),
+      appBar: AppBar(title: Text('Query User by id Page')),
       body: Center(
         child: Column(children: [
-        ElevatedButton(
-              onPressed: () async {
-                await readJson(widget.text);
-              },
-              child: const Text('Present Results'),
-            ),
-        ElevatedButton(
-          onPressed: () async{
-            const url = 'https://twitter.com/i/flow/login';
-            if(await canLaunchUrl(Uri.parse(url))){
-              await launchUrl(Uri.parse(url));
-            } else {
-              throw 'Could not launch $url';
-            }
-          },
-          child: const Text('Open Twitter URL'),
-        ),
-        Text('id: $_id',
-          textAlign: TextAlign.center,
-          overflow: TextOverflow.ellipsis,
-          style: const TextStyle(fontWeight: FontWeight.bold),),
-        Text('name: $_name',
-          textAlign: TextAlign.center,
-          overflow: TextOverflow.ellipsis,
-          style: const TextStyle(fontWeight: FontWeight.bold),),
-        Text('username: $_username',
-          textAlign: TextAlign.center,
-          overflow: TextOverflow.ellipsis,
-          style: const TextStyle(fontWeight: FontWeight.bold),),
         TextField(
-          onChanged: (value) {
-            url = 'http://127.0.0.1:5000/$value';
-          },
+          controller: _c,
           decoration: const InputDecoration(
             hintText: "Input id to check if user is real",
-            // suffixIcon: GestureDetector(onTap: ()async{
-            //   Data = await ConvertUrl(url);
-            //   var DecodedData = jsonDecode(Data);
-            //   setState(() {
-            //     _c.text = DecodedData['astroturf'];
-            //   });
-            // },),
             ),
           style: const TextStyle(
             fontSize: 24,
             color: Colors.black,
           ),
         ),
+        const SizedBox(
+          height: 10.0,
+        ),
         ElevatedButton(
               onPressed: () async {
-                Data = await ConvertUrl(url);
-                //var DecodedData = jsonDecode(Data);
-                setState(() {
-                  _text = Data;
-                });
+                await readJson(_c.text);
               },
-              child: const Text('Click to check bot user'),
+              child: const Text('Click to check another user by Id'),
             ),
-        Text('username: $_text, url = $url',
+        const SizedBox(
+          height: 10.0,
+        ),
+        Text('Id: $_id',
           textAlign: TextAlign.center,
           overflow: TextOverflow.ellipsis,
-          style: const TextStyle(fontWeight: FontWeight.bold),),
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 28),),
+        const SizedBox(
+          height: 10.0,
+        ),
+        Text('Name: $_name',
+          textAlign: TextAlign.center,
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 28),),
+        const SizedBox(
+          height: 10.0,
+        ),
+        Text('Username: $_username',
+          textAlign: TextAlign.center,
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 28),),
+        SizedBox(
+          height: 10.0,
+        ),
+        Visibility(
+          visible: _error_visibility,
+          child: 
+          Text('Error Message: $_error_flag',
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 28, color: Colors.red),
+          ),
+        ),
+        SizedBox(
+          height: 10.0,
+        ),
+        
         ],),
       ),
     );
@@ -526,4 +459,3 @@ class _QueryUserbyIdScreenState extends State<QueryUserbyIdScreen> {
   //     ),
   //   );
   // }
-
