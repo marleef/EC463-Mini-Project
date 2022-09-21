@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui' as ui;
 import 'dart:developer';
 import 'dart:html';
 import 'package:http/http.dart' as http;
@@ -7,8 +8,11 @@ import 'postModel.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
+// import 'package:flutter_web_ui/ui.dart' as ui;
 import 'firebase_options.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/style.dart'; 
 Future<void> main() async {
   // WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -62,14 +66,22 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late TextEditingController _c;
-  String _text = "initial";
-
+  var _text = "initial";
+  
   @override
   void initState() {
     _c = TextEditingController();
     super.initState();
   }
-
+  final _htmlContent = """
+  <head>
+    <title>embed tweets</title>
+  </head>
+  <body>
+    <a id="twitter" class="twitter-timeline" href="https://twitter.com/nasa"></a>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  </body>
+  """;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,6 +152,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 'Open Twitter URL',
                 style: TextStyle(fontSize: 30)
               ),
+            ),
+            ui.platformViewRegistry.registerViewFactory(
+              'twitter',
+              (int uid) {
+                IFrameElement _iFrame = IFrameElement()..src = "web/twitter.html";
+                _iFrame.style.border = "none";
+                return _iFrame;
+              },
             ),
           ],
         ),
