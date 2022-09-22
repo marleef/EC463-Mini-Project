@@ -8,7 +8,7 @@ import 'postModel.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
-// import 'package:flutter_web_ui/ui.dart' as ui;
+import 'package:twitter_login/twitter_login.dart';
 import 'firebase_options.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -68,22 +68,70 @@ class _MyHomePageState extends State<MyHomePage> {
   late TextEditingController _c;
   var _text = "initial";
   
+  Future login() async {
+    final twitterLogin = TwitterLogin(
+      /// Consumer API keys
+      apiKey: 'DVpGuGbEsvWptOobV8jofoh5W',
+
+      /// Consumer API Secret keys
+      apiSecretKey: '9Xf6rStivVmhnoiX39gUwTzu82kmcNZWutKvtKSKReMNwdvy7f',
+                
+      /// Registered Callback URLs in TwitterApp
+      /// Android is a deeplink
+      /// iOS is a URLScheme
+      redirectURI: 'http://127.0.0.1:5000/login',
+    );
+
+    /// Forces the user to enter their credentials
+    /// to ensure the correct users account is authorized.
+    /// If you want to implement Twitter account switching, set [force_login] to true
+    /// login(forceLogin: true);
+    final authResult = await twitterLogin.login();
+    switch (authResult.status) {
+      case TwitterLoginStatus.loggedIn:
+        // success
+        print('====== Login success ======');
+        print(authResult.authToken);
+        print(authResult.authTokenSecret);
+        break;
+      case TwitterLoginStatus.cancelledByUser:
+        // cancel
+        print('====== Login cancel ======');
+        break;
+      case TwitterLoginStatus.error:
+      case null:
+        // error
+        print('====== Login error ======');
+        break;
+    }
+  }
+
   @override
   void initState() {
     _c = TextEditingController();
     super.initState();
   }
   final _htmlContent = """
-  <head>
-    <title>embed tweets</title>
-  </head>
-  <body>
-    <a id="twitter" class="twitter-timeline" href="https://twitter.com/nasa"></a>
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-  </body>
+    <div>
+    <h1>This is a title</h1>
+    <p>This is a <strong>paragraph</strong>.</p>
+    <p>I like <i>dogs</i></p>
+    <p>Red text</p>
+    <a class="twitter-timeline" href="https://twitter.com/celtics?ref_src=twsrc%5Etfw">Tweets by celtics</a> 
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8">tweet script</script>
+    </div>
   """;
   @override
   Widget build(BuildContext context) {
+    // ignore: undefined_prefixed_name
+    ui.platformViewRegistry.registerViewFactory(
+      'twitter',
+      (int uid) {
+        IFrameElement _iFrame = IFrameElement()..src = "web/twitter.html";
+        _iFrame.style.border = "none";
+        return _iFrame;
+      },
+    );
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -104,6 +152,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.black,
               ),
             ),
+            ElevatedButton(
+            child: Text('Login With Twitter'),
+            onPressed: () async {
+              await login();
+            },
+          ),
             const SizedBox(
               height: 20.0,
             ),
@@ -153,14 +207,25 @@ class _MyHomePageState extends State<MyHomePage> {
                 style: TextStyle(fontSize: 30)
               ),
             ),
-            ui.platformViewRegistry.registerViewFactory(
-              'twitter',
-              (int uid) {
-                IFrameElement _iFrame = IFrameElement()..src = "web/twitter.html";
-                _iFrame.style.border = "none";
-                return _iFrame;
-              },
+            Html(
+              data: _htmlContent,
+              style: {
+                'h1': Style(color: Colors.red),
+                'p': Style(color: Colors.black87, fontSize: FontSize.medium),
+                'ul': Style(margin: const EdgeInsets.symmetric(vertical: 20)),
+                'a': Style(color: Colors.black87, fontSize: FontSize.medium),
+                
+              }
             ),
+            // Expanded(
+            //   child: Container(
+            //     padding: EdgeInsets.all(30.0),
+            //     child: HtmlElementView(
+            //       viewType: "twitter",
+            //     ),
+                
+            //   ),
+            // ),
           ],
         ),
       ),
