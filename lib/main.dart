@@ -275,7 +275,7 @@ class _HomePageState extends State<HomePage> {
   //   <p>This is a <strong>paragraph</strong>.</p>
   //   <p>I like <i>dogs</i></p>
   //   <p>Red text</p>
-  //   <a class="twitter-timeline" href="https://twitter.com/celtics?ref_src=twsrc%5Etfw">Tweets by celtics</a> 
+  //   <a class="twitter-timeline" href="https://twitter.com/celtics?ref_src=twsrc%5Etfw">Tweets by celtics</a>
   //   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8">tweet script</script>
   //   </div>
   // """;
@@ -298,118 +298,134 @@ class _HomePageState extends State<HomePage> {
       ),
       backgroundColor: Colors.black87,
       body: Padding(
-        padding: const EdgeInsets.all(25),
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          TextField(
-            controller: _c,
-            decoration: const InputDecoration(hintText: "Search by ID"),
-            style: Theme.of(context).textTheme.bodyText1,
-          ),
-          const SizedBox(
-            height: 20.0,
-          ),
-          TextButton(
-            child: Text('Login With Twitter',
-                style: TextStyle(
-                    fontSize: 14.0, color: Color.fromARGB(255, 121, 177, 224))),
-            onPressed: () async {
-              await login();
-            },
-          ),
-          const SizedBox(
-            height: 20.0,
-          ),
-          TextButton(
-            child: const Text('Query User by ID',
-                style: TextStyle(
-                    fontSize: 14.0, color: Color.fromARGB(255, 121, 177, 224))),
-            onPressed: () {
-              setState(() {
-                _text = _c.text;
-              });
-              // Navigator.pop(context);
-              _sendDataToQueryUserbyIdScreen(context, _text);
-            },
-          ),
-          const SizedBox(
-            height: 20.0,
-          ),
-          TextButton(
-            child: const Text('Check User/Bot Function',
-                style: TextStyle(
-                    fontSize: 14.0, color: Color.fromARGB(255, 121, 177, 224))),
-            onPressed: () {
-              setState(() {
-                _text = _c.text;
-              });
-              // Navigator.pop(context);
-              _sendDataToCheckBotScreen(context, _text);
-            },
-          ),
-          const SizedBox(
-            height: 20.0,
-          ),
-          TextButton(
-            // child: const Text('Present Results',
-            //     style: TextStyle(
-            //         fontSize: 14.0,
-            //         color: Color.fromARGB(255, 121, 177, 224))),
-            onPressed: () async {
-              const url = 'https://twitter.com/i/flow/login';
-              if (await canLaunchUrl(Uri.parse(url))) {
-                await launchUrl(Uri.parse(url));
-              } else {
-                throw 'Could not launch $url';
-              }
-            },
+          padding: const EdgeInsets.all(25),
+          child: SingleChildScrollView(
             child:
-                const Text('Open Twitter URL', style: TextStyle(
-                    fontSize: 14.0, color: Color.fromARGB(255, 121, 177, 224))),
-          ),
-          // Html(data: _htmlContent, style: {
-          //   'h1': Style(color: Colors.red),
-          //   'p': Style(color: Colors.black87, fontSize: FontSize.medium),
-          //   'ul': Style(margin: const EdgeInsets.symmetric(vertical: 20)),
-          //   'a': Style(color: Colors.black87, fontSize: FontSize.medium),
-          // }),
-          Container(
-            height: 420,
-            width: 500,
-            child: const HtmlElementView(
-              viewType: "twitter",
-            ),
-          ),
-          const SizedBox(
-            height: 20.0,
-          ),
-          // Text(
-          //   'id: $_id',
-          //   textAlign: TextAlign.center,
-          //   overflow: TextOverflow.ellipsis,
-          //   style: Theme.of(context).textTheme.bodyText1,
-          // ),
-          // Text(
-          //   'name: $_name',
-          //   textAlign: TextAlign.center,
-          //   overflow: TextOverflow.ellipsis,
-          //   style: Theme.of(context).textTheme.bodyText1,
-          // ),
-          // Text(
-          //   'username: $_username',
-          //   textAlign: TextAlign.center,
-          //   overflow: TextOverflow.ellipsis,
-          //   style: Theme.of(context).textTheme.bodyText1,
-          // ),
-          // Container(
-          //   height: 500,
-          //   width: 500,
-          //   //padding: const EdgeInsets.all(100.0),
-          //   child: const HtmlElementView(
-          //     viewType: "twitter",
-          //   ),
-          // ),
-        ]),
-      ),
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Container(
+                  child: TextField(
+                controller: _c,
+                decoration: const InputDecoration(hintText: "Search by ID"),
+                style: Theme.of(context).textTheme.bodyText1,
+              )),
+              Container(
+                  child: const SizedBox(
+                height: 20.0,
+              )),
+              Container(
+                  child: TextButton(
+                child: Text('Login With Twitter',
+                    style: TextStyle(
+                        fontSize: 14.0,
+                        color: Color.fromARGB(255, 121, 177, 224))),
+                onPressed: () async {
+                  await login();
+                },
+              )),
+              Container(
+                  child: const SizedBox(
+                height: 20.0,
+              )),
+              Container(
+                  child: TextButton(
+                child: const Text('Query User by ID',
+                    style: TextStyle(
+                        fontSize: 14.0,
+                        color: Color.fromARGB(255, 121, 177, 224))),
+                onPressed: () {
+                  setState(() {
+                    _text = _c.text;
+                  });
+                  // Navigator.pop(context);
+                  _sendDataToQueryUserbyIdScreen(context, _text);
+                },
+              )),
+              Container(
+                  child: const SizedBox(
+                height: 20.0,
+              )),
+              Container(
+                  child: TextButton(
+                child: const Text('Check User/Bot Function',
+                    style: TextStyle(
+                        fontSize: 14.0,
+                        color: Color.fromARGB(255, 121, 177, 224))),
+                onPressed: () {
+                  setState(() {
+                    _text = _c.text;
+                  });
+                  // Navigator.pop(context);
+                  _sendDataToCheckBotScreen(context, _text);
+                },
+              )),
+              Container(
+                  child: const SizedBox(
+                height: 20.0,
+              )),
+              Container(
+                  child: TextButton(
+                // child: const Text('Present Results',
+                //     style: TextStyle(
+                //         fontSize: 14.0,
+                //         color: Color.fromARGB(255, 121, 177, 224))),
+                onPressed: () async {
+                  const url = 'https://twitter.com/i/flow/login';
+                  if (await canLaunchUrl(Uri.parse(url))) {
+                    await launchUrl(Uri.parse(url));
+                  } else {
+                    throw 'Could not launch $url';
+                  }
+                },
+                child: const Text('Open Twitter URL',
+                    style: TextStyle(
+                        fontSize: 14.0,
+                        color: Color.fromARGB(255, 121, 177, 224))),
+              )),
+              // Html(data: _htmlContent, style: {
+              //   'h1': Style(color: Colors.red),
+              //   'p': Style(color: Colors.black87, fontSize: FontSize.medium),
+              //   'ul': Style(margin: const EdgeInsets.symmetric(vertical: 20)),
+              //   'a': Style(color: Colors.black87, fontSize: FontSize.medium),
+              // }),
+              Container(
+                height: 920,
+                width: 500,
+                child: const HtmlElementView(
+                  viewType: "twitter",
+                ),
+              ),
+              Container(
+                  child: const SizedBox(
+                height: 20.0,
+              )),
+              // Text(
+              //   'id: $_id',
+              //   textAlign: TextAlign.center,
+              //   overflow: TextOverflow.ellipsis,
+              //   style: Theme.of(context).textTheme.bodyText1,
+              // ),
+              // Text(
+              //   'name: $_name',
+              //   textAlign: TextAlign.center,
+              //   overflow: TextOverflow.ellipsis,
+              //   style: Theme.of(context).textTheme.bodyText1,
+              // ),
+              // Text(
+              //   'username: $_username',
+              //   textAlign: TextAlign.center,
+              //   overflow: TextOverflow.ellipsis,
+              //   style: Theme.of(context).textTheme.bodyText1,
+              // ),
+              // Container(
+              //   height: 500,
+              //   width: 500,
+              //   //padding: const EdgeInsets.all(100.0),
+              //   child: const HtmlElementView(
+              //     viewType: "twitter",
+              //   ),
+              // ),
+            ]),
+          )),
     );
   }
 }
@@ -506,14 +522,12 @@ class _CheckBotScreenState extends State<CheckBotScreen> {
               onPressed: () async {
                 await CheckBot(_c.text);
               },
-              child: const Text(
-                'Click to check bot user',
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                    fontSize: 14.0, color: Color.fromARGB(255, 121, 177, 224))
-
-              ),
+              child: const Text('Click to check bot user',
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      fontSize: 14.0,
+                      color: Color.fromARGB(255, 121, 177, 224))),
             ),
             const SizedBox(
               height: 10.0,
