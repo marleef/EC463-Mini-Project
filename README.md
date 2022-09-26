@@ -8,7 +8,9 @@ This repository contains the Flutter web application for gathering and monitorin
   - Check User/Bot Function
   - Sentiment Analysis
   - Open Twitter URL
+      - Launches ```https://twitter.com/i/flow/login``` webpage.
   - Twitter Timeline
+      - Displays user's timeline. Currently cannot be modified by user input and is set to display @NASA.
 
 
 ## Requirements
