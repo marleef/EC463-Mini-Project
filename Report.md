@@ -17,8 +17,8 @@ This repository contains the Flutter web application for gathering and monitorin
     -  Error handling for invalid or empty inputs is included.
   
   - Sentiment Analysis
-      - This function does not take input from the Main Page. After being directed to the Sentiment Analysis Page with button clicking on the Main Page, the function takes two inputs of a string of keyword and a integer which is the number of tweets the user wants to query to determine the number of tweets that each sentiment has.
-      - Each tweets are classified as one of the three sentiments: positive, negative, and neutral based on the algorithms provided by ```nltk.sentiment.vader``` which is one dependency in python library.
+      - This function takes two inputs of a string of ```keyword``` and integer ```noOfTweets``` the user wants to query to determine the number of tweets that each sentiment has.
+      - Each tweets are classified as one of the three sentiments: positive, negative, and neutral based on the algorithms provided by ```nltk.sentiment.vader``` which is one dependency in Python library.
       - Error handling for invalid or empty inputs is included.
   - Open Twitter URL
       - Launches ```https://twitter.com/i/flow/login``` webpage.
