@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
     <p>This is a <strong>paragraph</strong>.</p>
     <p>I like <i>dogs</i></p>
     <p>Red text</p>
-    <a class="twitter-timeline" href="https://twitter.com/celtics?ref_src=twsrc%5Etfw">Tweets by celtics</a> 
+    <a class="twitter-timeline" href="https://twitter.com/celtics">Tweets by celtics</a> 
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8">tweet script</script>
     </div>
   """;
@@ -214,7 +214,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 'p': Style(color: Colors.black87, fontSize: FontSize.medium),
                 'ul': Style(margin: const EdgeInsets.symmetric(vertical: 20)),
                 'a': Style(color: Colors.black87, fontSize: FontSize.medium),
-                
+
               }
             ),
             // Expanded(
