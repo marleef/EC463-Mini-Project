@@ -1,11 +1,38 @@
-# twitter_app
+# Twitter Monitor App
 
-A new Flutter project.
+This repository contains the Flutter web application for gathering and monitoring Twitter user account information.
+
+## Overview
+
+  - Query User by ID
+  - Check User/Bot Function
+  - Sentiment Analysis
+  - Open Twitter URL
+      - Launches ```https://twitter.com/i/flow/login``` webpage.
+  - Twitter Timeline
+      - Displays user's timeline. Currently cannot be modified by user input and is set to display @NASA.
+
+
+## Requirements
+1. Install dependencies
+
+    i. Flutter ```v3.3.2```
+
+    ii. Dart
+    
+    iii. Flask
+
+    iv. Python ```v3.7``` or later
+    
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+1. In the project directory enter ```flutter run``` to open and initialize the project. 
+    
+2. Enter ```2``` for ```[2]: Chrome (chrome)```.
 
+
+#
 A few resources to get you started if this is your first Flutter project:
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
