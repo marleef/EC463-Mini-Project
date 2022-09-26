@@ -42,81 +42,7 @@ Future<void> main() async {
 
 // }
 
-Future<Post> fetchPostman() async {
-  var headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Authorization':
-        'Bearer AAAAAAAAAAAAAAAAAAAAAHbigwEAAAAAYLdcL0KXSTmyQJc%2FToCqDKoWSYg%3DL6Td4vHj1Q3MIvu7tjge6iyRYIwQOTXw0gCWaiS79ESHtPWrxj',
-    'Cookie': 'guest_id=v1%3A166335990863918549'
-  };
-  // var request = http.Request('GET', Uri.parse('https://api.twitter.com/2/users/23083404'));
-  // request.headers.addAll(headers);
 
-  // http.StreamedResponse response = await request.send();
-
-  // if (response.statusCode == 200) {
-  //   final String rawResponse = await response.stream.bytesToString();
-  //   final decodedResponse = jsonDecode(rawResponse);
-  //   return decodedResponse;
-  // }
-  // else {
-  //   print(response.reasonPhrase);
-  //   throw Exception("nononn");
-  // }
-  // var response = await request.send();
-  // final sendresponse = await http.Response.fromStream(response);
-  // if (response.statusCode == 200) {
-  //   var responseData = jsonDecode(sendresponse["Data"]);
-  //   List<Post> users = [];
-  //   for (var singleData in responseData) {
-  //     Post user = Post(
-  //         id: singleData["id"],
-  //         name: singleData["name"],
-  //         username: singleData["username"]);
-
-  //     //Adding user to the list.
-  //     users.add(user);
-  //   }
-  //   return users;
-  // }
-  // else {
-  //   print(response.reasonPhrase);
-  //   throw Exception('nonononono');
-  // }
-
-  String url = "https://api.twitter.com/2/users/23083404";
-  //   // Map<String, String> headers = {
-  //   //   "Content-Type": "application/json",
-  //   //   "Application-Token": "1569025925387272193-eeB8czHPQ9SZAG3afgFftQg7FvnUGP"
-  //   // };
-  //   // String id = '1228393702244134912';
-
-  //   //var responseJson = json.decode(response.body);
-  //   // List<Post> posts = [];
-  //   // for (var singleContent in responseJson) {
-  //   //   Post post = Post(
-  //   //     userId: singleContent["userId"],
-  //   //     id: singleContent["id"],
-  //   //     title: singleContent["title"],
-  //   //     body: singleContent["body"]);
-  //   //   posts.add(post);
-  //   // }
-  //       //print(_response);
-  //       // return _response;
-  final response = await http.get(
-    Uri.parse(url),
-    headers: headers,
-  );
-  if (response.statusCode == 200) {
-    return Post.fromJson(jsonDecode(response.body));
-  } else {
-    throw Exception('Failed to fetch from twitter');
-  }
-  // int statusCode = response.statusCode;
-  // print('This is the statuscode: $statusCode');
-
-  //print('This is the API response: $responseJson');
-}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -173,112 +99,13 @@ class _HomePageState extends State<HomePage> {
   late TextEditingController _c;
   var _text = "initial";
 
-  Future login() async {
-    final twitterLogin = TwitterLogin(
-      /// Consumer API keys
-      apiKey: 'DVpGuGbEsvWptOobV8jofoh5W',
-
-      /// Consumer API Secret keys
-      apiSecretKey: '9Xf6rStivVmhnoiX39gUwTzu82kmcNZWutKvtKSKReMNwdvy7f',
-
-      /// Registered Callback URLs in TwitterApp
-      /// Android is a deeplink
-      /// iOS is a URLScheme
-      redirectURI: 'http://127.0.0.1:5000/login',
-    );
-
-    /// Forces the user to enter their credentials
-    /// to ensure the correct users account is authorized.
-    /// If you want to implement Twitter account switching, set [force_login] to true
-    /// login(forceLogin: true);
-    final authResult = await twitterLogin.login();
-    switch (authResult.status) {
-      case TwitterLoginStatus.loggedIn:
-        // success
-        print('====== Login success ======');
-        print(authResult.authToken);
-        print(authResult.authTokenSecret);
-        break;
-      case TwitterLoginStatus.cancelledByUser:
-        // cancel
-        print('====== Login cancel ======');
-        break;
-      case TwitterLoginStatus.error:
-      case null:
-        // error
-        print('====== Login error ======');
-        break;
-    }
-  }
-  // TextEditingController textEditingController = TextEditingController();
-  // dynamic _id = "";
-  // dynamic _name = "";
-  // dynamic _username = "";
-
-  // Future<void> readJson() async {
-  //   var headers = {
-  //     'Access-Control-Allow-Origin': '*',
-  //     'Authorization':
-  //         'Bearer AAAAAAAAAAAAAAAAAAAAAHbigwEAAAAAYLdcL0KXSTmyQJc%2FToCqDKoWSYg%3DL6Td4vHj1Q3MIvu7tjge6iyRYIwQOTXw0gCWaiS79ESHtPWrxj',
-  //     'Cookie': 'guest_id=v1%3A166335990863918549'
-  //   };
-  //   var request = http.Request(
-  //       'GET', Uri.parse('https://api.twitter.com/2/users/23083404'));
-  //   request.headers.addAll(headers);
-
-  //   http.StreamedResponse response = await request.send();
-
-  //   if (response.statusCode == 200) {
-  //     var rawResponse = await response.stream.bytesToString();
-  //     //var rawResponse = await http.Response.fromStream(response);
-  //     var decodedResponse = json.decode(rawResponse);
-  //     setState(() {
-  //       _id = decodedResponse["data"]["id"];
-  //       _name = decodedResponse["data"]["name"];
-  //       _username = decodedResponse["data"]["username"];
-  //     });
-  //     print(decodedResponse["data"]);
-  //   } else {
-  //     print(response.reasonPhrase);
-  //     throw Exception("nononn");
-  //   }
-  // }
-  // var _posts;
-  // void initState(){
-  //   super.initState();
-  //   Response = fetchPostman();
-
-  //   setState(() {
-  //     _posts = Response;
-  //   });
-  // }
-  // int _counter = 0;
-  // void _incrementCounter() {
-  //   setState(() {
-  //     // This call to setState tells the Flutter framework that something has
-  //     // changed in this State, which causes it to rerun the build method below
-  //     // so that the display can reflect the updated values. If we changed
-  //     // _counter without calling setState(), then the build method would not be
-  //     // called again, and so nothing would appear to happen.
-  //     _counter++;
-  //   });
-  // }
+  
   @override
   void initState() {
     _c = TextEditingController();
     super.initState();
   }
 
-  // final _htmlContent = """
-  //   <div>
-  //   <h1>This is a title</h1>
-  //   <p>This is a <strong>paragraph</strong>.</p>
-  //   <p>I like <i>dogs</i></p>
-  //   <p>Red text</p>
-  //   <a class="twitter-timeline" href="https://twitter.com/celtics?ref_src=twsrc%5Etfw">Tweets by celtics</a>
-  //   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8">tweet script</script>
-  //   </div>
-  // """;
 
   @override
   Widget build(BuildContext context) {
@@ -307,20 +134,6 @@ class _HomePageState extends State<HomePage> {
                 controller: _c,
                 decoration: const InputDecoration(hintText: "Search by ID"),
                 style: Theme.of(context).textTheme.bodyText1,
-              )),
-              Container(
-                  child: const SizedBox(
-                height: 20.0,
-              )),
-              Container(
-                  child: TextButton(
-                child: Text('Login With Twitter',
-                    style: TextStyle(
-                        fontSize: 14.0,
-                        color: Color.fromARGB(255, 121, 177, 224))),
-                onPressed: () async {
-                  await login();
-                },
               )),
               Container(
                   child: const SizedBox(
@@ -364,6 +177,24 @@ class _HomePageState extends State<HomePage> {
               )),
               Container(
                   child: TextButton(
+                child: const Text('Sentiment Analysis',
+                    style: TextStyle(
+                        fontSize: 14.0,
+                        color: Color.fromARGB(255, 121, 177, 224))),
+                onPressed: () {
+                  setState(() {
+                    _text = _c.text;
+                  });
+                  // Navigator.pop(context);
+                  _sendDataToSentimentAnalysisScreen(context, _text);
+                },
+              )),
+              Container(
+                  child: const SizedBox(
+                height: 20.0,
+              )),
+              Container(
+                  child: TextButton(
                 // child: const Text('Present Results',
                 //     style: TextStyle(
                 //         fontSize: 14.0,
@@ -398,32 +229,6 @@ class _HomePageState extends State<HomePage> {
                   child: const SizedBox(
                 height: 20.0,
               )),
-              // Text(
-              //   'id: $_id',
-              //   textAlign: TextAlign.center,
-              //   overflow: TextOverflow.ellipsis,
-              //   style: Theme.of(context).textTheme.bodyText1,
-              // ),
-              // Text(
-              //   'name: $_name',
-              //   textAlign: TextAlign.center,
-              //   overflow: TextOverflow.ellipsis,
-              //   style: Theme.of(context).textTheme.bodyText1,
-              // ),
-              // Text(
-              //   'username: $_username',
-              //   textAlign: TextAlign.center,
-              //   overflow: TextOverflow.ellipsis,
-              //   style: Theme.of(context).textTheme.bodyText1,
-              // ),
-              // Container(
-              //   height: 500,
-              //   width: 500,
-              //   //padding: const EdgeInsets.all(100.0),
-              //   child: const HtmlElementView(
-              //     viewType: "twitter",
-              //   ),
-              // ),
             ]),
           )),
     );
@@ -452,6 +257,193 @@ void _sendDataToCheckBotScreen(BuildContext context, String text) {
       ));
 }
 
+void _sendDataToSentimentAnalysisScreen(BuildContext context, String text) {
+  String textToSend = text;
+  Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SentimentAnalysisScreen(
+          text: textToSend,
+        ),
+      ));
+}
+
+class SentimentAnalysisScreen extends StatefulWidget {
+  final String text;
+
+  // receive data from the FirstScreen as a parameter
+  const SentimentAnalysisScreen({super.key, required this.text});
+  @override
+  _SentimentAnalysisScreenState createState() {
+    return _SentimentAnalysisScreenState();
+  }
+}
+
+class _SentimentAnalysisScreenState extends State<SentimentAnalysisScreen> {
+  TextEditingController _keyword = TextEditingController();
+  TextEditingController _numOfTweets = TextEditingController();
+  var Data;
+  String url = '';
+  String total = '';
+  String pos = '';
+  String neg = '';
+  String neu = '';
+  dynamic _error_flag;
+  dynamic _error_visibility = false;
+  Future ConvertUrl(String key, String num) async {
+    var request = http.Request('PUT', Uri.parse('http://127.0.0.1:5000/sentimentpost'));
+    var headers = {
+      "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "Access-Control-Allow-Headers":
+          "Origin,content-type,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale, X-RapidAPI-Key, X-RapidAPI-Host",
+      'Referrer-Policy': 'no-referrer-when-downgrade',
+    };
+    var body = jsonEncode("{'Key': '$key', 'Num': '$num'}");
+    // http.Response responseP = await http.put(
+    //   Uri.parse('http://127.0.0.1:5000/sentimentpost'),
+    //   headers: headers,
+    //   body: body,
+    // );
+    request.headers.addAll(headers);
+    request.body = body;
+    http.StreamedResponse responseP= await request.send();
+    var rawResponseP = await http.Response.fromStream(responseP);
+    print(rawResponseP.body);
+    if (responseP.statusCode == 200) { // Status check for put request
+      
+      var request = http.Request('GET', Uri.parse('http://127.0.0.1:5000/sentiment'));
+      var headers = {
+        "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+        "Access-Control-Allow-Headers":
+          "Origin,content-type,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale, X-RapidAPI-Key, X-RapidAPI-Host",
+        'Referrer-Policy': 'no-referrer-when-downgrade',
+      };
+      request.headers.addAll(headers);
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200){
+        var rawResponse = await http.Response.fromStream(response);
+        if (rawResponse.body[0] == 0){
+          return "e";
+        }
+        return rawResponse.body;
+      } else {
+        return "e"; //"User Not found, cannot perform bot check.";
+      }
+      
+    } else {
+      return "e"; //"PUT request was unsuccessful, try again.";
+    }
+    
+  }
+  Future<void> SentimentAnalysis(String key, String num) async {
+    var inputUrl = 'http://127.0.0.1:5000/sentiment';
+    Data = await ConvertUrl(key,num);
+    if(Data != "e") {
+      setState(() {
+        total = Data[0].toString();
+        pos = Data[1].toString();
+        neg = Data[2].toString();
+        neu = Data[3].toString();
+        url = inputUrl;
+        _error_flag = '';
+        _error_visibility = false;
+    });
+    } else {
+      setState(() {
+        total = '';
+        pos = '';
+        neg = '';
+        neu = '';
+        url = inputUrl;
+        _error_flag = "User/hastag Not found, cannot perform sentiment analysis.";
+        _error_visibility = true;
+      });
+    }
+    Data = json.decode(Data);
+    setState(() {
+      total = Data[0].toString();
+      pos = Data[1].toString();
+      neg = Data[2].toString();
+      neu = Data[3].toString();
+      url = inputUrl;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Sentiment Analysis Page')),
+      body: Center(
+        child: Column(
+          children: [
+            TextField(
+              controller: _keyword,
+              decoration: const InputDecoration(
+                hintText: "Input a hashtag or keyword to perform sentiment analysis",
+              ),
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            TextField(
+              controller: _numOfTweets,
+              decoration: const InputDecoration(
+                hintText: "Input the number of tweets you want to analyze",
+              ),
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            TextButton(
+              onPressed: () async {
+                await SentimentAnalysis(_keyword.text, _numOfTweets.text);
+              },
+              child: const Text('Click to perform sentiment analysis',
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      fontSize: 14.0,
+                      color: Color.fromARGB(255, 121, 177, 224))),
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Text(
+              'Total number of Tweets: $total\n\nPositive Tweets: $pos\n\nNegative Tweets: $neg\n\nNeutrual Tweets: $neu\n\nQueried url: $url',
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Visibility(
+              visible: _error_visibility,
+              child: Text(
+                'Error Message: $_error_flag',
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    color: Colors.red),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+}
+
 class CheckBotScreen extends StatefulWidget {
   final String text;
 
@@ -468,31 +460,73 @@ class _CheckBotScreenState extends State<CheckBotScreen> {
   var Data;
   String url = '';
   String _text = '';
-  Future ConvertUrl(String urL) async {
-    var request = http.Request('GET', Uri.parse(urL));
+  String isbot = '';
+  dynamic _error_flag;
+  dynamic _error_visibility = false;
+  Future ConvertUrl(String userid) async {
+    var request = http.Request('PUT', Uri.parse('http://127.0.0.1:5000/botometerpost'));
     var headers = {
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
       "Access-Control-Allow-Headers":
           "Origin,content-type,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale, X-RapidAPI-Key, X-RapidAPI-Host",
       'Referrer-Policy': 'no-referrer-when-downgrade',
     };
+    var body = '{"userId" : $userid}';
+    body = json.encode(body);
     request.headers.addAll(headers);
-    http.StreamedResponse response = await request.send();
-    if (response.statusCode == 200) {
-      var rawResponse = await http.Response.fromStream(response);
-      return rawResponse.body;
+    request.body = body;
+    http.StreamedResponse responseP= await request.send();
+    if (responseP.statusCode == 200) { // Status check for put request
+      var rawResponseP = await http.Response.fromStream(responseP);
+      print(rawResponseP.body);
+      var request = http.Request('GET', Uri.parse('http://127.0.0.1:5000/botometer'));
+      var headers = {
+        "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+        "Access-Control-Allow-Headers":
+          "Origin,content-type,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale, X-RapidAPI-Key, X-RapidAPI-Host",
+        'Referrer-Policy': 'no-referrer-when-downgrade',
+      };
+      request.headers.addAll(headers);
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200){
+        var rawResponse = await http.Response.fromStream(response);
+        return rawResponse.body;
+      } else {
+        return "e"; //"User Not found, cannot perform bot check.";
+      }
+      
     } else {
-      return "User Not found, cannot perform bot check.";
+      return "e"; //"PUT request was unsuccessful, try again.";
     }
   }
 
   Future<void> CheckBot(String inputText) async {
-    var inputUrl = 'http://127.0.0.1:5000/$inputText';
-    Data = await ConvertUrl(inputUrl);
-    setState(() {
+    var inputUrl = 'http://127.0.0.1:5000/botometer/';
+    Data = await ConvertUrl(inputText);
+    if(Data != "e") {
+      setState(() {
       _text = Data;
       url = inputUrl;
+      if (double.parse(_text) <= 2){
+        isbot = 'This account is very likely to be a human. (0<score<2)';
+      } else if (double.parse(_text) > 2 && double.parse(_text) < 3){
+        isbot = 'Botometer is not very certain about this user. (2<score<3)';
+      } else {
+        isbot = 'This account is very like to be a robot. (3<user<5)';
+      }
+      _error_flag = '';
+      _error_visibility = false;
     });
+    } else {
+      setState(() {
+        _text = '';
+        url = '';
+        isbot = '';
+        _error_flag = "User Not found, cannot perform bot check.";
+        _error_visibility = true;
+      });
+    }
+    
   }
 
   @override
@@ -530,13 +564,28 @@ class _CheckBotScreenState extends State<CheckBotScreen> {
                       color: Color.fromARGB(255, 121, 177, 224))),
             ),
             const SizedBox(
-              height: 10.0,
+              height: 20.0,
             ),
             Text(
-              'Bot score: $_text\n\nQueried url: $url',
+              'Bot Score: $_text\n\nBot Result: $isbot\n\nQueried URL: $url',
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.bodyText1,
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Visibility(
+              visible: _error_visibility,
+              child: Text(
+                'Error Message: $_error_flag',
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    color: Colors.red),
+              ),
             ),
           ],
         ),
@@ -564,7 +613,7 @@ class _QueryUserbyIdScreenState extends State<QueryUserbyIdScreen> {
   dynamic _error_flag;
   dynamic _error_visibility = false;
 
-  Future<void> readJson(String text) async {
+  Future<void> ConvertUrl(String text) async {
     var headers = {
       'Access-Control-Allow-Origin': '*',
       'Authorization':
@@ -612,7 +661,7 @@ class _QueryUserbyIdScreenState extends State<QueryUserbyIdScreen> {
 
   @override
   void initState() {
-    readJson(widget.text);
+    ConvertUrl(widget.text);
     super.initState();
   }
 
@@ -635,9 +684,15 @@ class _QueryUserbyIdScreenState extends State<QueryUserbyIdScreen> {
             ),
             TextButton(
               onPressed: () async {
-                await readJson(_c.text);
+                await ConvertUrl(_c.text);
               },
-              child: const Text('Click to check another user by Id'),
+              child: const Text('Click to check another user by Id',
+                textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      fontSize: 14.0,
+                      color: Color.fromARGB(255, 121, 177, 224))
+              ),
             ),
             const SizedBox(
               height: 10.0,
@@ -677,7 +732,7 @@ class _QueryUserbyIdScreenState extends State<QueryUserbyIdScreen> {
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 28,
+                    fontSize: 14,
                     color: Colors.red),
               ),
             ),
