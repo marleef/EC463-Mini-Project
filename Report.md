@@ -1,12 +1,22 @@
 # Twitter Monitor App
+### Bowen Ma & Marlee Feltham
 
+#
 This repository contains the Flutter web application for gathering and monitoring Twitter user account information.
 
 ## Overview
 
   - Query User by ID
+      - This function takes the input of a user ID and queries the username through the ```Twitter API v2``` on the Main Page.
+      - Pressing the button launches the Query User ID Page to receive user input, and display user ID, name, and username. 
+      - Error handling for invalid or empty inputs is included.
+
   - Check User/Bot Function
+    -  This function takes the input of a user ID and queries the username through the ```https://botometer-pro.p.rapidapi.com/``` on the Main Page to determine if the user is a real user or bot.
+    -  The user score is presented on the 
+  
   - Sentiment Analysis
+      - 
   - Open Twitter URL
       - Launches ```https://twitter.com/i/flow/login``` webpage.
   - Twitter Timeline
